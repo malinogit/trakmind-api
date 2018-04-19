@@ -9,6 +9,8 @@ import pl.mal.trakmind.service.UserService;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static java.lang.Thread.sleep;
+
 @Service
 @AllArgsConstructor
 public class UserFacadeImpl implements UserFacade{
@@ -18,7 +20,13 @@ public class UserFacadeImpl implements UserFacade{
 
     @Override
     public List<UserDto> findByUsername(String username) {
-        return userService.findByUsername(username)
-                .stream().map(userMapper::userToUserDto).collect(Collectors.toList());
+        try {
+            sleep(1000);
+            return userService.findByUsername(username)
+                    .stream().map(userMapper::userToUserDto).collect(Collectors.toList());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
