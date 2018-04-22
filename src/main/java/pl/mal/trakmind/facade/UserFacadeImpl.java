@@ -29,4 +29,10 @@ public class UserFacadeImpl implements UserFacade{
         }
         return null;
     }
+
+    @Override
+    public UserDto registerUser(UserDto userDto) {
+        return userMapper.userToUserDto(userService.registerUser(
+                userMapper.userDtoToUser(userDto)));
+    }
 }

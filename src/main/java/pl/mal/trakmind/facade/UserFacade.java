@@ -7,4 +7,5 @@ import java.util.List;
 public interface UserFacade {
 
     List<UserDto> findByUsername(String username);
+    UserDto registerUser(UserDto userDto);
 }

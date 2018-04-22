@@ -10,4 +10,5 @@ public interface UserService {
     List<User> findAll();
     User save(String username, RoleNameEnum roleNameEnum);
     List<User> findByUsername(String name);
+    User registerUser(User user);
 }

@@ -5,6 +5,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Component;
+import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;
 import pl.mal.trakmind.model.domain.User;
 import pl.mal.trakmind.service.UserService;
 
@@ -30,5 +31,10 @@ public class Init {
                 .forEach(
                         (preUser) -> userService.save(preUser.getFirst(), preUser.getSecond())
                 );
+    }
+
+    @Bean
+    public MethodValidationPostProcessor methodValidationPostProcessor() {
+        return new MethodValidationPostProcessor();
     }
 }
