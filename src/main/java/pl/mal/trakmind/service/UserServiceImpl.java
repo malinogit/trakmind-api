@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import static pl.mal.trakmind.model.UserActionTypeEnum.REGISTER;
+
 @Service
 @AllArgsConstructor
 @Transactional(readOnly = true)
@@ -18,6 +20,7 @@ public class UserServiceImpl extends CommonService<UserServiceImpl> implements U
 
     private final UserRepository userRepository;
     private final RoleService roleService;
+    private final UserHistoryService userHistoryService;
 
     @Override
     public List<User> findAll() {
@@ -45,11 +48,15 @@ public class UserServiceImpl extends CommonService<UserServiceImpl> implements U
     @Override
     @Transactional
     public User registerUser(User user) {
-        logger.info("registerUser: " + user.getUsername());
+        LOGGER.info("REGISTER USER \"" + user.getUsername() + "\" START");
         if (userRepository.existsByUsername(user.getUsername())) {
             throw new IllegalArgumentException("Username is already taken");
         }
         user.setRoles(roleService.findByName(RoleNameEnum.BASIC_USER.getName()));
-        return save(UserFabric.createBaseUser(user));
+        user = UserFabric.createBaseUser(user);
+        userHistoryService.save(user, null, REGISTER);
+        user = save(user);
+        LOGGER.info("REGISTER USER \"" + user.getUsername() + "\" COMPLETED");
+        return user;
     }
 }

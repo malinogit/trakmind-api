@@ -4,5 +4,5 @@ import org.apache.log4j.Logger;
 
 abstract class CommonService<T> {
 
-    static Logger logger = Logger.getLogger(CommonService.class);
+    static Logger LOGGER = Logger.getLogger(CommonService.class);
 }

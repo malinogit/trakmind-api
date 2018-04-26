@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table
@@ -39,6 +40,9 @@ public class User implements Serializable {
 
     @Column
     private Boolean accountNonLocked;
+
+    @OneToMany(mappedBy = "user")
+    private List<UserHistory> userHistory;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(

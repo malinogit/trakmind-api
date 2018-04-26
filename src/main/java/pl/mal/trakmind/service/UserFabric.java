@@ -9,7 +9,7 @@ class UserFabric {
 
     static User createUser(String username, Role role) {
         return new User(null, username, "password", "nullMail", true, true,
-                true, true, Collections.singleton(role));
+                true, true, null, Collections.singleton(role));
     }
     static User createBaseUser(User user) {
         user.setPassword("{noop}" + user.getPassword());
